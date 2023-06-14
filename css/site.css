@@ -17,19 +17,19 @@ footer {
     background-color: var(--dark-color);
 }
 
-.bsicon {
+.bs-icon {
     color: purple;
 }
 
-.jsicon {
+.js-icon {
     color: rgb(226, 211, 4);
 }
 
-.html5icon {
+.html5-icon {
     color: orangered;
 }
 
-.cssicon {
+.css-icon {
     color: rgb(11, 82, 214)
 }
 
