@@ -15,9 +15,13 @@
 
     <link href="/css/solar.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/img/logo/dark.png">
+
+    <!-- jquery-->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
 
-<body class="d-flex flex-column h-100">
+<body onload="init()" class="d-flex flex-column h-100">
+  
     <!-- ==== Nav Section ==== -->
     <nav class="navbar navbar-expand-md bg-dark fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
@@ -51,8 +55,48 @@
 
         <!-- ==== Main Section ==== -->
         <main class="flex-shrink-0">
-            <div class="container">
+            <div class="container col-xxl-8 px-4 py-5" id="app-container">
+                <figure id="spinner" style="overflow: visible;"><center style="margin-top: 1.5em; line-height: 150%;"><img src="https://www.qt.io/hubfs/_website/qt-webassembly/qtlogo.svg" style="display: block;"> <strong>QShark Attack</strong>
+                    <div id="status">&nbsp;</div>
+                    <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript></center></figure>
+                    <canvas id="canvas" style="margin: 0 auto; width: 80%; margin-bottom: 10rem; box-shadow: 0 0 20px #999;" width="720" height="680"></canvas>
+                    <script type='text/javascript'>
+                        let qtLoader = undefined;
+                        function init() {
+                          var spinner = document.querySelector('#spinner');
+                          var canvas = document.querySelector('#canvas');
+                          var status = document.querySelector('#status')
                 
+                          qtLoader = new QtLoader({
+                              canvasElements : [canvas],
+                              showLoader: function(loaderStatus) {
+                                  spinner.style.display = 'block';
+                                  canvas.style.display = 'none';
+                                  status.innerHTML = loaderStatus + "...";
+                              },
+                              showError: function(errorText) {
+                                  status.innerHTML = errorText;
+                                  spinner.style.display = 'block';
+                                  canvas.style.display = 'none';
+                              },
+                              showExit: function() {
+                                  status.innerHTML = "Application exit";
+                                  if (qtLoader.exitCode !== undefined)
+                                      status.innerHTML += " with code " + qtLoader.exitCode;
+                                  if (qtLoader.exitText !== undefined)
+                                      status.innerHTML += " (" + qtLoader.exitText + ")";
+                                  spinner.style.display = 'block';
+                                  canvas.style.display = 'none';
+                              },
+                              showCanvas: function() {
+                                  spinner.style.display = 'none';
+                                  canvas.style.display = 'block';
+                              },
+                          });
+                          qtLoader.loadEmscriptenModule("qtApp/QMortgageApp");
+                      }
+                    </script>
+                <script type="text/javascript" src="qtApp/qtloader.js"></script>
             </div>
         </main>
     <!-- ==== Footer Section ==== -->
