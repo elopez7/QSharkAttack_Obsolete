@@ -220,11 +220,27 @@
                         This component is the TableView that displays the amortization information and how long will it take to pay the debt.
                     </p>
                     <h5>Connections Section</h5>
-                    <p>Description of Connections Here</p>
+                    <p>
+                        There are 3 Connections elements that target leftBox, buttonLayout and appLayout respectively.<br>
+                        <strong>leftBox</strong> contains an input button that emits a calculateInterest signal when pressed. 
+                        This signal will in turn call on to the loanHelper's C++ calculateInterest function.
+                    </p>
+                    <p>
+                        <strong>buttonLayout</strong> works in a similar fashion to leftBox signals. The reason to have it defined in two places is that depending on the size of the screen the button will become visible or invisible.
+                    </p>
+                    <p>
+                        The <strong>appLayout</strong> connection is trigerred when the screen is being resized. If the screen becomes small, then the app will be rendered in a single column, but after there is some more room, then two columns will be used to render the UI.
+                    </p>
                     <h5>States Section</h5>
-                    <p>Description of States Here</p>
+                    <p>
+                        The states allow to control how the UI will be drawn to the screen. If the screen width is less than 480 pixels, then the UI will be in rendered as a single column.
+                        <br>
+                        This effect is achieved by forcing the layout to take 2 columns of space instead of one. In short, it creates the illusion of it being a single column.
+                        <br>
+                        When the screen is bigger than 480 pixels, then layout elements will each use a single column, changing the positioningof the UI elements.
+                    </p>
                     <h5>Bindings Section</h5>
-                    <p>Description of Bindings Here</p>
+                    <p>The bindings I am using allow me to assign values to variables in a simple fashion. One advantage of using Bindings is that I don't have to manually update elements upon change. For example, when entering one value into one of the text fieds, the binding will update automatically.</p>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-2">
